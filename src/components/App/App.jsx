@@ -25,19 +25,19 @@ const App = () => {
       ...values,
       [valueName]: values[valueName] + 1,
     });
-
-    if (valueName === "reset") {
-      setValues({
-        good: 0,
-        neutral: 0,
-        bad: 0,
-      });
-    }
   };
 
   useEffect(() => {
     localStorage.setItem("saved-clicks", JSON.stringify(values));
   }, [values]);
+
+  const resetFeedback = () => {
+    setValues({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
 
   const totalFeedback = values.good + values.neutral + values.bad;
   const positiveValue = Math.round((values.good / totalFeedback) * 100);
@@ -46,20 +46,12 @@ const App = () => {
     <div className={css.container}>
       <Description />
 
-      <Options value="good" onClick={updateFeedback}>
-        Good
-      </Options>
-      <Options value="neutral" onClick={updateFeedback}>
-        Neutral
-      </Options>
-      <Options value="bad" onClick={updateFeedback}>
-        Bad
-      </Options>
-      {totalFeedback !== 0 && (
-        <Options value="reset" onClick={updateFeedback}>
-          Reset
-        </Options>
-      )}
+      <Options
+        reset={resetFeedback}
+        value={values}
+        onClick={updateFeedback}
+        total={totalFeedback}
+      />
 
       {totalFeedback ? (
         <Feedback

@@ -1,11 +1,27 @@
 import css from "./Options.module.css";
 
-const Options = ({ onClick, value, type = "button", children }) => {
+const Options = ({ onClick, reset, total, value, type = "button" }) => {
   return (
-    <button className={css.btn} name={value} onClick={onClick} type={type}>
-      {children}
-    </button>
+    <>
+      {Object.keys(value).map((element) => {
+        return (
+          <button
+            className={css.btn}
+            key={element}
+            onClick={onClick}
+            name={element}
+            type={type}
+          >
+            {element.charAt(0).toUpperCase() + element.slice(1)}
+          </button>
+        );
+      })}
+      {total !== 0 && (
+        <button className={css.btn} onClick={reset} type={type}>
+          Reset
+        </button>
+      )}
+    </>
   );
 };
-
 export default Options;
