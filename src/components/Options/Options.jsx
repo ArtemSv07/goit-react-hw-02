@@ -8,7 +8,7 @@ const Options = ({ onClick, reset, total, value, type = "button" }) => {
           <button
             className={css.btn}
             key={element}
-            onClick={onClick}
+            onClick={() => onClick(element)}
             name={element}
             type={type}
           >

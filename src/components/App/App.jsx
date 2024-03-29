@@ -20,10 +20,9 @@ const App = () => {
   });
 
   const updateFeedback = (value) => {
-    const valueName = value.target.name;
     setValues({
       ...values,
-      [valueName]: values[valueName] + 1,
+      [value]: values[value] + 1,
     });
   };
 
@@ -40,7 +39,8 @@ const App = () => {
   };
 
   const totalFeedback = values.good + values.neutral + values.bad;
-  const positiveValue = Math.round((values.good / totalFeedback) * 100);
+  const positiveValue =
+    totalFeedback > 0 && Math.round((values.good / totalFeedback) * 100);
 
   return (
     <div className={css.container}>
